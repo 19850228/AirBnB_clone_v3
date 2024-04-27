@@ -10,9 +10,14 @@ from models import city
 from models.base_model import BaseModel
 import pep8
 import unittest
+
+# Importing the new test classes
+from test_city_docs_2 import TestCityDocs as TestCityDocs2
+from test_city_docs_3 import TestCityDocs as TestCityDocs3
+
 City = city.City
 
-
+# Combining the existing test class with the new ones
 class TestCityDocs(unittest.TestCase):
     """Tests to check the documentation and style of City class"""
     @classmethod
@@ -112,3 +117,10 @@ class TestCity(unittest.TestCase):
         city = City()
         string = "[City] ({}) {}".format(city.id, city.__dict__)
         self.assertEqual(string, str(city))
+
+# Merging the new test classes into the existing file
+TestCityDocs.__bases__ += (TestCityDocs2,)
+TestCity.__bases__ += (TestCityDocs3,)
+
+if __name__ == '__main__':
+    unittest.main()
