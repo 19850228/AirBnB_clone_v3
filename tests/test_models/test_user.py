@@ -1,4 +1,4 @@
- #!/usr/bin/python3
+#!/usr/bin/python3
 """
 Contains the TestUserDocs classes
 """
@@ -132,3 +132,5 @@ class TestUser(unittest.TestCase):
         self.assertEqual(string, str(user))
 
 
+if __name__ == '__main__':
+    unittest.main()
