@@ -103,9 +103,4 @@ class TestAmenity(unittest.TestCase):
         """test that the str method has the correct output"""
         amenity = Amenity()
         string = "[Amenity] ({}) {}".format(amenity.id, amenity.__dict__)
-        self.assertEqual(string, str(amenity))
-    
-
-
-       
-
+        self.assertEqual(string, str(amenity)))
