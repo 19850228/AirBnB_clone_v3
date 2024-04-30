@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+ #!/usr/bin/python3
 """
 Contains the TestUserDocs classes
 """
@@ -42,7 +42,7 @@ class TestUserDocs(unittest.TestCase):
                         "user.py needs a docstring")
 
     def test_user_class_docstring(self):
-        """Test for the City class docstring"""
+        """Test for the User class docstring"""
         self.assertIsNot(User.__doc__, None,
                          "User class needs a docstring")
         self.assertTrue(len(User.__doc__) >= 1,
@@ -132,7 +132,3 @@ class TestUser(unittest.TestCase):
         self.assertEqual(string, str(user))
 
 
-  
-
-
-   
