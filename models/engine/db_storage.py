@@ -3,6 +3,7 @@
 Contains the class DBStorage
 """
 
+import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
@@ -11,6 +12,7 @@ from models.review import Review
 from models.state import State
 from models.user import User
 from os import getenv
+import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -19,7 +21,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 class DBStorage:
-    """interacts with the MySQL database"""
+    """interaacts with the MySQL database"""
     __engine = None
     __session = None
 
@@ -47,7 +49,7 @@ class DBStorage:
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
-        return new_dict
+        return (new_dict)
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -63,23 +65,12 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """reload data from the database"""
+        """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(sess_factory)
+        Session = scoped_session(sess_factory)
+        self.__session = Session
 
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
-
-    def get(self, cls, id):
-        '''method to retrieve one object'''
-        if cls and id:
-            key = "{}.{}".format(cls.__name__, id)
-            return self.all(cls).get(key, None)
-        else:
-            return None
-
-    def count(self, cls=None):
-        '''count the number of objects in storage'''
-        return len(self.all(cls))
